@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stop Watch</title>
+  </head>
+
+  <body>
+
+      <p class="js-today-date"></p>
+
+      <p class="js-display"></p>
+    
+
+    <button class="js-startStop-button">Start</button>
+
+    <button class="js-reset-button">Reset</button>
+
+    <script>
+      document.querySelector('.js-startStop-button')
+        .addEventListener('click', () => {
+          start();
+        });
+
+        document.querySelector('.js-reset-button')
+        .addEventListener('click', () => {
+          reset();
+        });
+
+      let seconds = 0;
+      let minutes = 0;
+      let hours = 0;
+      let intervalId;
+
+      let buttonElement = document.querySelector('.js-startStop-button');
+
+      function start () {
+        if(buttonElement.innerHTML != 'Stop') {
+          clearInterval(intervalId);
+          intervalId = setInterval (() => {
+          seconds++
+          if (seconds >= 60) {
+            seconds = 0;
+            minutes ++;
+          };
+          if (minutes >= 60) {
+            minutes = 0;
+            hours ++;
+          };
+          updateDisplay ();
+
+          buttonElement.innerHTML = 'Stop';
+        }, 1000);
+
+        } else if (buttonElement.innerHTML != 'Start') {
+          clearInterval(intervalId);
+          buttonElement.innerHTML = 'Start';
+
+        };
+        
+      };
+
+      function reset () {
+        clearInterval(intervalId);
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        updateDisplay ();
+      };
+
+      function updateDisplay () {
+        buttonElement.innerHTML = 'Start';
+        document.querySelector('.js-display')
+          .innerHTML = `${hours}H : ${minutes}M : ${seconds}S`;
+      };
+
+
+
+      // setInterval (() => {
+      //   const todayElement = document.querySelector('.js-today-date');
+
+      // const newDate = new Date();
+      // const hour = newDate.getHours();
+      // const minute = newDate.getMinutes();
+      // const second = newDate.getSeconds();
+      // const date = newDate.getDate();
+
+      // const timeFormate = `${hour} : ${minute} : ${second}
+      // Date is ${date} `;
+      // todayElement.innerHTML = timeFormate;
+      // }, 1000);
+
+
+    </script>
+</html>
